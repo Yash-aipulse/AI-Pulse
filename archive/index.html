@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Pulse – Archive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --bg-soft: #FAF8F5;
+      --bg-section: #F5F2EE;
+      --text: #14110F;
+      --text-secondary: #4A4742;
+      --text-muted: #8A857F;
+      --text-dim: #B8B3AC;
+      --accent: #D6006E;
+      --accent-hover: #B8005E;
+      --accent-soft: rgba(214, 0, 110, 0.08);
+      --border: #E8E4DE;
+      --border-strong: #D4CFC7;
+      --footer-bg: #14110F;
+      --footer-text: #C9C4BD;
+
+      --sec-pharma: #2D7A5F;
+      --sec-finance: #8B6B1F;
+      --sec-hardware: #8B5A3C;
+      --sec-research: #6B4A8F;
+      --sec-policy: #A33838;
+      --sec-operations: #3D5A8F;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Manrope', -apple-system, sans-serif;
+      font-weight: 400;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* === NAV === */
+    nav {
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 100;
+    }
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: -0.015em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      background: var(--accent);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .brand-mark::after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      background: var(--bg);
+      border-radius: 50%;
+    }
+    .brand-name {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .brand-name .secondary {
+      color: var(--text-muted);
+      font-weight: 400;
+      font-size: 14px;
+    }
+    .nav-meta {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+    .nav-meta a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-meta a:hover { color: var(--accent); }
+    .nav-meta a.active { color: var(--accent); }
+    .nav-cta {
+      background: var(--text);
+      color: var(--bg);
+      padding: 10px 18px;
+      font-family: 'Manrope', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: -0.005em;
+      text-transform: none;
+      border-radius: 2px;
+      transition: background 0.2s;
+      text-decoration: none;
+    }
+    .nav-cta:hover { background: var(--accent) !important; color: var(--bg) !important; }
+
+    /* === HERO === */
+    .hero {
+      padding: 80px 0 64px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-soft);
+    }
+    .hero-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: var(--accent);
+    }
+    .hero h1 {
+      font-family: 'Manrope', sans-serif;
+      font-weight: 700;
+      font-size: clamp(36px, 4.5vw, 60px);
+      line-height: 1.06;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--text-secondary);
+      max-width: 640px;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    /* === ARCHIVE LIST === */
+    .archive-section {
+      padding: 64px 0 96px;
+    }
+
+    .archive-year {
+      margin-bottom: 56px;
+    }
+    .archive-year:last-child {
+      margin-bottom: 0;
+    }
+
+    .year-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 600;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 0;
+    }
+
+    .issue-row {
+      display: grid;
+      grid-template-columns: 80px 100px 1fr auto;
+      gap: 32px;
+      align-items: center;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.15s;
+    }
+    .issue-row:hover {
+      background: var(--bg-soft);
+      margin: 0 -40px;
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+
+    .issue-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+    }
+    .issue-date {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .issue-headline {
+      font-family: 'Manrope', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      line-height: 1.35;
+    }
+    .issue-row:hover .issue-headline {
+      color: var(--accent);
+    }
+    .issue-sectors {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .sector-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .sector-dot[data-sector="pharma"]     { background: var(--sec-pharma); }
+    .sector-dot[data-sector="finance"]    { background: var(--sec-finance); }
+    .sector-dot[data-sector="hardware"]   { background: var(--sec-hardware); }
+    .sector-dot[data-sector="research"]   { background: var(--sec-research); }
+    .sector-dot[data-sector="policy"]     { background: var(--sec-policy); }
+    .sector-dot[data-sector="operations"] { background: var(--sec-operations); }
+
+    .issue-arrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 14px;
+      color: var(--text-dim);
+      transition: color 0.15s, transform 0.15s;
+    }
+    .issue-row:hover .issue-arrow {
+      color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    /* === LEGEND === */
+    .legend-band {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-soft);
+    }
+    .legend-inner {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    .legend-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .legend-items {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .legend-item .sector-dot {
+      width: 9px;
+      height: 9px;
+    }
+
+    /* === EMPTY STATE === */
+    .empty-note {
+      padding: 64px 0;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    /* === FOOTER === */
+    footer {
+      background: var(--footer-bg);
+      color: var(--footer-text);
+      padding: 80px 0 40px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 56px;
+      margin-bottom: 64px;
+    }
+    .footer-brand-block {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: -0.015em;
+      color: #FFFFFF;
+      margin-bottom: 16px;
+    }
+    .footer-brand-block .brand-mark { background: var(--accent); }
+    .footer-brand-block .brand-mark::after { background: var(--footer-bg); }
+    .footer-tag {
+      font-size: 14px;
+      color: var(--footer-text);
+      max-width: 380px;
+      line-height: 1.6;
+      opacity: 0.8;
+    }
+    .footer-col h4 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(201, 196, 189, 0.6);
+      margin-bottom: 18px;
+      font-weight: 600;
+    }
+    .footer-col a {
+      display: block;
+      color: var(--footer-text);
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 12px;
+      transition: color 0.2s;
+      opacity: 0.85;
+    }
+    .footer-col a:hover { color: #FFFFFF; opacity: 1; }
+    .footer-bottom {
+      border-top: 1px solid rgba(201, 196, 189, 0.15);
+      padding-top: 32px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      color: rgba(201, 196, 189, 0.5);
+    }
+
+    @media (max-width: 900px) {
+      .issue-row {
+        grid-template-columns: 64px 1fr auto;
+        gap: 16px;
+      }
+      .issue-date { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+    @media (max-width: 720px) {
+      .container { padding: 0 22px; }
+      .issue-row:hover {
+        margin: 0 -22px;
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+      .issue-sectors { display: none; }
+      .nav-meta .hide-mobile { display: none; }
+      .hero { padding: 56px 0 40px; }
+      .legend-band { display: none; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .issue-row { grid-template-columns: 1fr auto; }
+      .issue-num { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ NAV ============ -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="../index.html" class="brand">
+        <div class="brand-mark"></div>
+        <div class="brand-name">
+          AI Pulse <span class="secondary">/ Sector Intelligence</span>
+        </div>
+      </a>
+      <div class="nav-meta">
+        <a href="../index.html" class="hide-mobile">Latest issue</a>
+        <a href="index.html" class="active hide-mobile">Archive</a>
+        <a href="#subscribe" class="nav-cta">Subscribe</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-eyebrow">All issues</div>
+      <h1>Archive</h1>
+      <p class="hero-sub">Every issue of AI Pulse, organized chronologically. Each brief covers six developments across the AI frontier, mapped to the sectors most affected.</p>
+    </div>
+  </header>
+
+  <!-- ============ SECTOR LEGEND ============ -->
+  <div class="legend-band">
+    <div class="container legend-inner">
+      <span class="legend-label">Sectors</span>
+      <div class="legend-items">
+        <div class="legend-item"><span class="sector-dot" data-sector="pharma"></span> Pharma &amp; Health</div>
+        <div class="legend-item"><span class="sector-dot" data-sector="finance"></span> Financial Services</div>
+        <div class="legend-item"><span class="sector-dot" data-sector="hardware"></span> Hardware &amp; Devices</div>
+        <div class="legend-item"><span class="sector-dot" data-sector="research"></span> Research</div>
+        <div class="legend-item"><span class="sector-dot" data-sector="policy"></span> Policy &amp; Regulation</div>
+        <div class="legend-item"><span class="sector-dot" data-sector="operations"></span> Operations &amp; Enterprise</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ARCHIVE LIST ============ -->
+  <main class="archive-section">
+    <div class="container">
+
+      <div class="archive-year">
+        <div class="year-label">2026</div>
+
+        <!-- Add new issues above this line, following the same pattern -->
+
+        <a href="issue-011.html" class="issue-row">
+          <span class="issue-num">011</span>
+          <span class="issue-date">06 May 2026</span>
+          <span class="issue-headline">The competitive frontier in AI is shifting from model performance to embedding, oversight, and distribution.</span>
+          <span class="issue-sectors">
+            <span class="sector-dot" title="Finance" data-sector="finance"></span>
+            <span class="sector-dot" title="Operations" data-sector="operations"></span>
+            <span class="sector-dot" title="Hardware" data-sector="hardware"></span>
+            <span class="sector-dot" title="Pharma &amp; Health" data-sector="pharma"></span>
+            <span class="sector-dot" title="Research" data-sector="research"></span>
+            <span class="sector-dot" title="Policy" data-sector="policy"></span>
+          </span>
+          <span class="issue-arrow">→</span>
+        </a>
+
+        <!-- Placeholder rows — remove when real issues are added -->
+        <!--
+        <a href="issue-010.html" class="issue-row">
+          <span class="issue-num">010</span>
+          <span class="issue-date">05 May 2026</span>
+          <span class="issue-headline">Issue 010 headline goes here.</span>
+          <span class="issue-sectors">
+            <span class="sector-dot" data-sector="finance"></span>
+            <span class="sector-dot" data-sector="policy"></span>
+          </span>
+          <span class="issue-arrow">→</span>
+        </a>
+        -->
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-block">
+            <div class="brand-mark"></div>
+            AI Pulse
+          </div>
+          <p class="footer-tag">Sector intelligence on the AI frontier, prepared for senior decision-makers across pharma, financial services, and enterprise operations. A briefing service of [Your Company].</p>
+        </div>
+        <div class="footer-col">
+          <h4>Issues</h4>
+          <a href="../index.html">Latest issue</a>
+          <a href="index.html">Archive</a>
+          <a href="#subscribe">Subscribe</a>
+        </div>
+        <div class="footer-col">
+          <h4>Sectors</h4>
+          <a href="#">Pharma &amp; Health</a>
+          <a href="#">Financial Services</a>
+          <a href="#">Hardware &amp; Devices</a>
+          <a href="#">Policy &amp; Regulation</a>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <a href="#">Contact the team</a>
+          <a href="#">Methodology</a>
+          <a href="#">Privacy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 [Your Company] · All rights reserved</span>
+        <span>AI Pulse Archive</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
